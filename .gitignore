@@ -1,2 +1,12 @@
 build
 dist
+
+# VS Code / エディタ
+/.vscode/
+*.code-workspace
+/.history/
+
+# clangd / CMake Tools
+/compile_commands.json
+/CMakeUserPresets.json
+/.cache/clangd/

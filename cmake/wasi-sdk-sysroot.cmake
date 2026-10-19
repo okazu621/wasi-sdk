@@ -334,13 +334,6 @@ function(define_libcxx_sub sysroot target target_suffix extra_target_flags extra
   set(extra_cxxflags_list ${CMAKE_CXX_FLAGS} ${extra_flags})
   list(JOIN extra_cxxflags_list " " extra_cxxflags)
 
-  set(patches
-    ${CMAKE_SOURCE_DIR}/src/llvm-pr-168449.patch
-    ${CMAKE_SOURCE_DIR}/src/llvm-pr-186054.patch
-    ${CMAKE_SOURCE_DIR}/src/llvm-undo-part-of-194317.patch
-  )
-  list(JOIN patches " " patches)
-
   ExternalProject_Add(libcxx-${target}${target_suffix}-build
     SOURCE_DIR ${llvm_proj_dir}/runtimes
     CMAKE_ARGS
@@ -396,10 +389,6 @@ function(define_libcxx_sub sysroot target target_suffix extra_target_flags extra
     USES_TERMINAL_CONFIGURE ON
     USES_TERMINAL_BUILD ON
     USES_TERMINAL_INSTALL ON
-    USES_TERMINAL_PATCH ON
-    PATCH_COMMAND
-      ${CMAKE_COMMAND} -E chdir .. bash -c
-        "git apply ${patches} || git apply ${patches} -R --check"
   )
   add_dependencies(libcxx-${target} libcxx-${target}${target_suffix}-build)
 endfunction()
